@@ -32,22 +32,23 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/login-google', function () {
     return Socialite::driver('google')->redirect();
+    
 });
 
 Route::get('/google-callback', function () {
     $user = Socialite::driver('google')->user();
 
     //validacion si el usuario exixte
-    $userExists = User::where('external_id',$user->id)->where('external_auth','google')->first();
-     
-    if( $userExists){
+    $userExists = User::where('external_id', $user->id)->where('external_auth', 'google')->first();
+
+    if ($userExists) {
         Auth::login($userExists);
-    }else{
+    } else {
         $userNew = User::create([
-            'name'=> $user->name,
-            'email'=>$user->email,
-            'avatar'=>$user->avatar,
-            'external_id'=>$user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'avatar' => $user->avatar,
+            'external_id' => $user->id,
             'external_auth' => 'google',
 
         ]);
