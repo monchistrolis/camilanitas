@@ -70,6 +70,11 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Registrarse') }}
                                 </button>
+                               
+                            </div>
+                            {{-- agregar btn de google --}}
+                            <div>
+                                <a class="btnGoogle d-flex justify-content-center btn " href="{{ url('/login-google') }}" class="btn btn-danger">Google</a>
                             </div>
                         </div>
                     </form>
@@ -78,4 +83,6 @@
         </div>
     </div>
 </div>
+<!---->
+falta poner el boton de registro con google
 @endsection
