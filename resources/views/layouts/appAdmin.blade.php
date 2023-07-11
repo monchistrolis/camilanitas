@@ -22,17 +22,17 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/admin') }}">
                     <img class="MiLogo" src="{{ asset('images/lana.png') }}" alt="">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <div class="itemnavbar container-fluid">
                     <ul class="navbar-nav me-auto d-flex justify-content-center">
                         <li>
-                            <a class="nav-link" href="{{ route('productos') }}">{{ __('Productos') }}</a>
+                            <a class="nav-link" href="{{ route('create') }}">{{ __('Agregar') }}</a>
                         </li>
                         <li>
-                            <a class="nav-link" href="{{ route('informacion') }}">{{ __('Informacion') }}</a>
+                            <a class="nav-link" href="{{ route('productos') }}">{{ __('Informacion') }}</a>
                         </li>
                         <li>
                             <a class="nav-link" href="{{ route('productos') }}">{{ __('Contactos') }}</a>

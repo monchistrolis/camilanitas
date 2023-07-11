@@ -25,6 +25,10 @@ Route::get('/productos', function () {
     return view('productos');
 })->name('productos');
 
+Route::get('/informacion', function () {
+    return view('informacion');
+})->name('informacion');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -58,3 +62,11 @@ Route::get('/google-callback', function () {
 
     return redirect('home');
 });
+
+Route::get('/admin', function () {
+    return view('admin');
+});
+
+Route::get('/agregarProductos', function () {
+    return view('create');
+})->name('create');
