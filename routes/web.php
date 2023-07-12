@@ -29,6 +29,10 @@ Route::get('/informacion', function () {
     return view('informacion');
 })->name('informacion');
 
+Route::get('/carrito', function () {
+    return view('carrito');
+})->name('carrito');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -38,7 +38,7 @@
                             <a class="nav-link" href="{{ route('productos') }}">{{ __('Contactos') }}</a>
                         </li>
                         <li>
-                            <a class="nav-link" href="{{ route('productos') }}">{{ __('Carrito') }}</a>
+                            <a class="nav-link" href="{{ route('carrito') }}">{{ __('Carrito') }}</a>
                         </li>
                     </ul>
                 </div>

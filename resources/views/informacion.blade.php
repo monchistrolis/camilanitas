@@ -12,8 +12,9 @@
     </div>
     <div class="row">
         <div class="col-12 d-flex justify-content-center">
-            <div class="row">
-                <h2>¿Quienes somos?</h2>
+            <div class="row d-flex justify-content-center">
+                <h2 class="text-center">¿Quienes somos?</h2>
+                <img class="logoInfo" src="{{ asset('images/lana.png') }}" alt="">
             </div>
         </div>
     </div>
