@@ -29,13 +29,13 @@
                 <div class="itemnavbar container-fluid">
                     <ul class="navbar-nav me-auto d-flex justify-content-center">
                         <li>
-                            <a class="nav-link" href="{{ route('productos') }}">{{ __('Productos') }}</a>
+                            <a class="nav-link" href="/productos">{{ __('Producto') }}</a>
                         </li>
                         <li>
                             <a class="nav-link" href="{{ route('informacion') }}">{{ __('Informacion') }}</a>
                         </li>
                         <li>
-                            <a class="nav-link" href="{{ route('productos') }}">{{ __('Contactos') }}</a>
+                            <a class="nav-link" href="">{{ __('Contactos') }}</a>
                         </li>
                         <li>
                             <a class="nav-link" href="{{ route('carrito') }}">{{ __('Carrito') }}</a>

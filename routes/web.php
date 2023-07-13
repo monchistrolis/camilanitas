@@ -4,6 +4,9 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\ProductoController;
+use App\Http\Middleware\ProtegerRuta1;
+
 
 
 /*
@@ -21,9 +24,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/productos', function () {
-    return view('productos');
-})->name('productos');
+
 
 Route::get('/informacion', function () {
     return view('informacion');
@@ -71,6 +72,15 @@ Route::get('/admin', function () {
     return view('admin');
 });
 
-Route::get('/agregarProductos', function () {
-    return view('create');
-})->name('create');
+Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos.create');
+Route::get('/productos/admin', [ProductoController::class, 'admin'])->name('productos.admin');
+
+
+
+
+
+Route::resource('productos', ProductoController::class);
+
+
+
+
