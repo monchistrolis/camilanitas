@@ -6,18 +6,18 @@
             <h1>Productos</h1>
         </div>
     </div>
-    @foreach ($productos as $producto)
-        <div class="container d-flex justify-content-center ">
-            <div class="row">
 
-                <div class="card-deck">
-                    <a id="estella" style="text-decoration: none">
+    <div class="container col-12 d-flex justify-content-center ">
+        <div class="row">
+            <div class="card-deck">
+                <a id="estella" style="text-decoration: none">
+                    @foreach ($productos as $producto)
                         <div class=" tarjeta1 card m-3" style="width: 18rem;">
                             <img class="img card-img-top" src="{{ asset('storage') . '/' . $producto->foto }}"
                                 alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card-title text-center">{{ $producto->nombre }}</h5>
-                                <h5 class="card-title text-center">{{ $producto->precio }}</h5>
+                                <h5 class="card-title text-center"> $ {{ $producto->precio }}</h5>
                                 <hr>
                                 <p class="card-text text-center">"{{ $producto->descripcion }}"</p>
                                 <div class="d-flex justify-content-center">
@@ -26,9 +26,9 @@
                                 </div>
                             </div>
                         </div>
-                    </a>
-
-                </div>
+                    @endforeach
+                </a>
             </div>
-    @endforeach
+        </div>
+    </div>
 @endsection

@@ -6,12 +6,13 @@
             <h1>Panel De Administrador</h1>
         </div>
     </div>
-    @foreach ($productos as $producto)
+   
         <div class="container d-flex justify-content-center ">
             <div class="row">
 
                 <div class="card-deck">
                     <a id="estella" style="text-decoration: none">
+                        @foreach ($productos as $producto)
                         <div class=" tarjeta1 card m-3" style="width: 18rem;">
                             <img class="img card-img-top" src="{{ asset('storage') . '/' . $producto->foto }}"
                                 alt="Card image cap">
@@ -33,8 +34,11 @@
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                     </a>
                 </div>
             </div>
-    @endforeach
+        </div>
+        
+   
 @endsection

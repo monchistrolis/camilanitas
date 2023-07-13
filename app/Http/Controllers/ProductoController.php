@@ -16,13 +16,13 @@ class ProductoController extends Controller
     public function index()
     {
         //
-        $datos['productos']=Producto::paginate(5);
+        $datos['productos']=Producto::paginate(18);
         return view( 'productos.index',$datos);
     }
     public function admin()
     {
         //
-        $datos['productos']=Producto::paginate(5);
+        $datos['productos']=Producto::paginate(18);
         return view( 'productos.admin',$datos);
     }
 
