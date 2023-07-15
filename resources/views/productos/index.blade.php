@@ -21,7 +21,7 @@
                                 <hr>
                                 <p class="card-text text-center">"{{ $producto->descripcion }}"</p>
                                 <div class="d-flex justify-content-center">
-                                    <button class="cardbtn btn  mx-2" style="background-color:#e76e50 ">ver</button>
+                                    <a href="{{ url('ver', ['producto' => $producto->id]) }}" class="cardbtn btn  mx-2" style="background-color:#e76e50 ">ver</a>
                                     <button class="cardbtn btn "style="background-color:#e8c468">Agregar</button>
                                 </div>
                             </div>

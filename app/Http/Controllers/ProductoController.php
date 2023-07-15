@@ -16,14 +16,23 @@ class ProductoController extends Controller
     public function index()
     {
         //
-        $datos['productos']=Producto::paginate(18);
-        return view( 'productos.index',$datos);
+        $datos['productos'] = Producto::all();
+        return view('productos.index', $datos);
     }
+
+    public function carrito()
+    {
+        $datos['productos'] = Producto::paginate(100);
+        return view('productos.carrito');
+    }
+
+
+
     public function admin()
     {
         //
-        $datos['productos']=Producto::paginate(18);
-        return view( 'productos.admin',$datos);
+        $datos['productos'] = Producto::paginate(18);
+        return view('productos.admin', $datos);
     }
 
     /**
@@ -34,7 +43,7 @@ class ProductoController extends Controller
     public function create()
     {
         //devorve la vista de crear del formulario
-        return view( 'productos.create' );
+        return view('productos.create');
     }
 
     /**
@@ -47,15 +56,14 @@ class ProductoController extends Controller
     {
         //
         //$datosProducto = request()-> all();
-        $datosProducto = request()-> except('_token');
-        if($request->hasFile('foto')){
-            $datosProducto['foto']=$request->file('foto')->store('uploads','public');
+        $datosProducto = request()->except('_token');
+        if ($request->hasFile('foto')) {
+            $datosProducto['foto'] = $request->file('foto')->store('uploads', 'public');
         }
         Producto::insert($datosProducto);
 
         //return a la view productos
-        return redirect('productos')->with('mensaje','Producto agregado con exito');
-        
+        return redirect('productos')->with('mensaje', 'Producto agregado con exito');
     }
 
     /**
@@ -64,10 +72,13 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(int $id)
     {
-        //
+        // $productoElegido = Producto:: where('id', $id)->first();
+        $producto = Producto::find($id);
+        return view ('ver', compact('producto'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -78,8 +89,8 @@ class ProductoController extends Controller
     public function edit($id)
     {
         //
-        $producto=Producto::findOrFail($id);
-        return view ('productos.edit',compact('producto'));
+        $producto = Producto::findOrFail($id);
+        return view('productos.edit', compact('producto'));
     }
 
     /**
@@ -92,20 +103,20 @@ class ProductoController extends Controller
     public function update(Request $request, $id)
     {
         //actualiza los datos de la BD
-        $datosProducto = request()-> except(['_token','_method']);
+        $datosProducto = request()->except(['_token', '_method']);
 
-        if($request->hasFile('foto')){
-            $producto=Producto::findOrFail($id);
-            Storage::delete('public/'.$producto->foto);
-            $datosProducto['foto']=$request->file('foto')->store('uploads','public');
+        if ($request->hasFile('foto')) {
+            $producto = Producto::findOrFail($id);
+            Storage::delete('public/' . $producto->foto);
+            $datosProducto['foto'] = $request->file('foto')->store('uploads', 'public');
         }
 
 
-        Producto::where('id','=',$id)->update($datosProducto);
+        Producto::where('id', '=', $id)->update($datosProducto);
 
-        $producto=Producto::findOrFail($id);
-        
-        return redirect('productos/admin')->with('mensaje','Producto modificado con exito');
+        $producto = Producto::findOrFail($id);
+
+        return redirect('productos/admin')->with('mensaje', 'Producto modificado con exito');
     }
 
     /**
@@ -118,6 +129,6 @@ class ProductoController extends Controller
     {
         //
         Producto::destroy($id);
-        return redirect('productos/admin')->with('mensaje','Producto eliminado con exito');
+        return redirect('productos/admin')->with('mensaje', 'Producto eliminado con exito');
     }
 }

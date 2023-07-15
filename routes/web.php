@@ -74,6 +74,7 @@ Route::get('/admin', function () {
 
 Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos.create');
 Route::get('/productos/admin', [ProductoController::class, 'admin'])->name('productos.admin');
+Route::get('/ver/{id}', [ProductoController::class, 'show'])->name('ver');
 
 
 
