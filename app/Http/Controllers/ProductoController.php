@@ -52,19 +52,40 @@ class ProductoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // public function store(Request $request)
+    // {
+    //     //
+    //     //$datosProducto = request()-> all(); muestra todos los datos
+    //     $datosProducto = request()->except('_token');
+    //     if ($request->hasFile('foto')) {
+    //         $datosProducto['foto'] = $request->file('foto')->store('uploads', 'public');
+    //     }
+    //     Producto::insert($datosProducto);
+
+    //     //return a la view productos
+    //     return redirect('productos')->with('mensaje', 'Producto agregado con exito');
+    // }
+
     public function store(Request $request)
     {
-        //
-        //$datosProducto = request()-> all();
-        $datosProducto = request()->except('_token');
-        if ($request->hasFile('foto')) {
-            $datosProducto['foto'] = $request->file('foto')->store('uploads', 'public');
-        }
-        Producto::insert($datosProducto);
+        $datosProducto = $request->except('_token');
 
-        //return a la view productos
-        return redirect('productos')->with('mensaje', 'Producto agregado con exito');
+        if ($request->hasFile('imagenes')) {
+            $imagenes = [];
+
+            foreach ($request->file('imagenes') as $imagen) {
+                $path = $imagen->store('uploads', 'public');
+                $imagenes[] = $path;
+            }
+
+            $datosProducto['imagenes'] = json_encode($imagenes);
+        }
+
+        Producto::create($datosProducto);
+
+        return redirect()->back()->with('success', 'Producto creado correctamente');
     }
+
 
     /**
      * Display the specified resource.
@@ -72,12 +93,20 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id)
-    {
-        // $productoElegido = Producto:: where('id', $id)->first();
-        $producto = Producto::find($id);
-        return view ('ver', compact('producto'));
+    public function show($id)
+{
+    $producto = Producto::find($id);
+    $recomendacion = Producto::inRandomOrder()->limit(4)->get();
+    $imagenes = [];
+
+    if ($producto->imagenes) {
+        $imagenes = json_decode($producto->imagenes);
     }
+
+    return view('ver', compact('producto', 'recomendacion', 'imagenes'));
+}
+
+
 
 
     /**

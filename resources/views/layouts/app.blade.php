@@ -13,6 +13,10 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    {{-- icono --}}
+    <link rel="icon" href="{{ asset('images/fondo.png') }}">
+    {{-- js --}}
+    <script src="{{ asset('build/assets/app.js') }}"></script>
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -27,18 +31,18 @@
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <div class="itemnavbar container-fluid">
-                    <ul class="navbar-nav me-auto d-flex justify-content-center">
+                    <ul class="navbar-nav  d-flex justify-content-center">
                         <li>
                             <a class="nav-link" href="/productos">{{ __('Producto') }}</a>
                         </li>
                         <li>
                             <a class="nav-link" href="{{ route('informacion') }}">{{ __('Informacion') }}</a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a class="nav-link" href="">{{ __('Contactos') }}</a>
-                        </li>
+                        </li> --}}
                         <li>
-                            <a class="nav-link" href="{{ route('carrito') }}">{{ __('Carrito') }}</a>
+                            <a class="nav-link" href="/productos/carrito">{{ __('Carrito') }}</a>
                         </li>
                     </ul>
                 </div>

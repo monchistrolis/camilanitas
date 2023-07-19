@@ -12,25 +12,22 @@ return new class extends Migration
      * @return void
      */
     public function up()
-    {
-        Schema::create('productos', function (Blueprint $table) {
-            $table->id();
-
-            $table -> string('nombre');
-            $table -> string('descripcion');
-            $table -> string('precio');
-            $table -> string('foto');
-
-            
-
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('productos', function (Blueprint $table) {
+        $table->id();
+        $table->string('nombre');
+        $table->string('descripcion');
+        $table->decimal('precio', 8, 2);
+        $table->json('imagenes')->nullable(); // Columna para almacenar las imágenes (JSON)
+        $table->integer('stock')->default(0);
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.
      *
-     * @return void
+     * @return voidphp
      */
     public function down()
     {
