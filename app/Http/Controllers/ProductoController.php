@@ -20,18 +20,10 @@ class ProductoController extends Controller
         return view('productos.index', $datos);
     }
 
-    public function carrito()
-    {
-        $datos['productos'] = Producto::paginate(100);
-        return view('productos.carrito');
-    }
-
-
-
     public function admin()
     {
         //
-        $datos['productos'] = Producto::paginate(18);
+        $datos['productos'] = Producto::paginate(180);
         return view('productos.admin', $datos);
     }
 
@@ -45,26 +37,6 @@ class ProductoController extends Controller
         //devorve la vista de crear del formulario
         return view('productos.create');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    // public function store(Request $request)
-    // {
-    //     //
-    //     //$datosProducto = request()-> all(); muestra todos los datos
-    //     $datosProducto = request()->except('_token');
-    //     if ($request->hasFile('foto')) {
-    //         $datosProducto['foto'] = $request->file('foto')->store('uploads', 'public');
-    //     }
-    //     Producto::insert($datosProducto);
-
-    //     //return a la view productos
-    //     return redirect('productos')->with('mensaje', 'Producto agregado con exito');
-    // }
 
     public function store(Request $request)
     {
@@ -84,6 +56,16 @@ class ProductoController extends Controller
         Producto::create($datosProducto);
 
         return redirect()->back()->with('success', 'Producto creado correctamente');
+    }
+
+    public function carrito(Request $request)
+    {
+        // Obtener el carrito actual de la sesión
+        $carrito = $request->session()->get('carrito', []);
+
+        // Lógica adicional para procesar el carrito si es necesario...
+
+        return view('emails.pedidos', ['carrito' => $carrito]);
     }
 
 

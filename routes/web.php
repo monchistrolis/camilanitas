@@ -1,11 +1,15 @@
 <?php
 
+use App\Http\Controllers\CarritoController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ProductoController;
-use App\Http\Middleware\ProtegerRuta1;
+use App\Http\Controllers\DatosBancariosController;
+use App\Http\Controllers\CompraController;
+use App\Mail\PedidosMailable;
+use Illuminate\Support\Facades\Mail;
 
 
 
@@ -23,16 +27,19 @@ use App\Http\Middleware\ProtegerRuta1;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/datosCompra', function () {
+    return view('datosCompra');
+})->name('datosCompra');
 
-
+Route::get('/confirmacion_compra', function () {
+    return view('confirmacion_compra');
+})->name('confirmacion_compra');
 
 Route::get('/informacion', function () {
     return view('informacion');
 })->name('informacion');
 
-Route::get('/carrito', function () {
-    return view('carrito');
-})->name('carrito');
+Route::get('/datosBanco', function() {return view('datosBanco');})->name('datosBanco');
 
 Auth::routes();
 
@@ -41,7 +48,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/login-google', function () {
     return Socialite::driver('google')->redirect();
-    
 });
 
 Route::get('/google-callback', function () {
@@ -72,16 +78,43 @@ Route::get('/admin', function () {
     return view('admin');
 });
 
+// rutas de productos
 Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos.create');
 Route::get('/productos/admin', [ProductoController::class, 'admin'])->name('productos.admin');
 Route::get('/ver/{id}', [ProductoController::class, 'show'])->name('ver');
 Route::get('/productos/carrito', [ProductoController::class, 'carrito'])->name('productos.carrito');
-
-
-
-
-
+Route::get('/productos/{id}/edit', [ProductoController::class, 'update'])->name('productos.edit');
 Route::resource('productos', ProductoController::class);
+
+// rutas de compra
+Route::post('/confirmacion_compra', [CompraController::class, 'confirmacionCompra'])->name('confirmacion_compra');
+Route::get('/finalizar_compra', [CompraController::class, 'finalizarCompra'])->name('finalizar_compra');
+
+// rutas de datos bancarios
+Route::post('/datosCompra', [DatosBancariosController::class ,'generarOrden'])->name('datosCompra');
+Route::post('/generar-orden', [DatosBancariosController::class,'generarOrden'])->name('generar-orden');
+
+// rutas de email
+// Route::get('pedidos',function(){
+//     $correo = new PedidosMailable;
+//     Mail::to('ramon.agui.san96@gmail.com')->send($correo);
+
+//     return "mensaje enviado";
+// });
+Route::get('emails/pedidos',[CarritoController::class,'productoEmail'])->name('pedidos');
+
+// rutas de carrito
+Route::get('Carrito/carrito', [CarritoController::class, 'mostrarCarrito'])->name('carrito.mostrar');
+Route::post('/carrito/agregar', [CarritoController::class ,'agregarProducto'])->name('carrito.agregar');
+Route::delete('/carrito/eliminar/{id}', [CarritoController::class, 'borrarProductoDelCarrito'])->name('carrito.eliminar');
+Route::get('finalizar_compra', [CarritoController::class, 'finalizarCompra'])->name('finalizarCompra');
+
+
+
+
+
+
+// web.php
 
 
 

@@ -14,8 +14,16 @@
                     <a id="estella" style="text-decoration: none">
                         @foreach ($productos as $producto)
                         <div class=" tarjeta1 card m-3" style="width: 18rem;">
-                            <img class="img card-img-top" src="{{ asset('storage') . '/' . $producto->foto }}"
-                                alt="Card image cap">
+            
+                            @if ($producto->imagenes)
+                            @php
+                                $imagenes = json_decode($producto->imagenes);
+                            @endphp
+                            @if (!empty($imagenes[0]))
+                                <img class="img card-img-top" src="{{ asset('storage') . '/' . $imagenes[0] }}"
+                                    alt="Card image cap">
+                            @endif
+                        @endif
                             <div class="card-body">
                                 <h5 class="card-title text-center">{{ $producto->nombre }}</h5>
                                 <h5 class="card-title text-center">{{ $producto->precio }}</h5>

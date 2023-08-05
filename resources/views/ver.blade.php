@@ -25,8 +25,8 @@
                     {{-- muniatura debajo el carrucel --}}
                     <div class="mt-4" id="fotosIDSeleccionado">
                         @foreach ($imagenes as $index => $imagen)
-                            <img class=" imgminiatura img-thumbnail" src="{{ asset('storage') . '/' . $imagen }}" alt="Thumbnail Image"
-                                style="max-height: 55px; margin: 3px; cursor: pointer; "
+                            <img class=" imgminiatura img-thumbnail" src="{{ asset('storage') . '/' . $imagen }}"
+                                alt="Thumbnail Image" style="max-height: 55px; margin: 3px; cursor: pointer; "
                                 onclick="seleccionarOpcion({{ $index }})">
                         @endforeach
                     </div>
@@ -73,16 +73,15 @@
                                 @foreach ($imagenes as $index => $imagen)
                                     <option class="opcion" value="{{ $index }}"
                                         data-img="{{ asset('storage') . '/' . $imagen }}">
-                                        Opción {{ $index + 1 }}
+                                        {{$producto -> nombre}} {{ $index + 1 }}
                                     </option>
                                 @endforeach
                             </select>
                         </div>
-                        <!-- Fin del menú desplegable -->
                     </div>
 
-                    {{-- selecion de cantidad --}}
-                    <div class=" ">
+                    {{-- seleccion de cantidad --}}
+                    <div class="">
                         <button class="btncantidadmenos" onclick="decrementarCantidad()">-</button>
                         <input class="input-redondeado text-center" type="number" id="cantidad" name="cantidad"
                             min="1" value="1" {{ $producto->stock === 0 ? 'disabled' : '' }}>
@@ -94,18 +93,21 @@
 
                     {{-- agregar boton de carrito --}}
                     <div class="d-flex justify-content-center">
-                        <form action="" method="">
+                        <form action="{{ route('carrito.agregar') }}" method="POST">
                             @csrf
                             <input type="hidden" name="producto_id" value="{{ $producto->id }}">
+
+                            <!-- Campo oculto para almacenar la opción (imagen) seleccionada -->
+                            <input type="hidden" name="opcion" id="opcion" value="0">
+                            <input type="hidden" name="cantidad" id="cantidad-hidden" value="1"> <!-- Campo oculto para enviar la cantidad al controlador -->
 
                             <button class="btn" style="width: 50%; background-color:#2a9d90;" type="submit"
                                 {{ $producto->stock === 0 ? 'disabled' : '' }}> Agregar
                                 <img class="imgcarrito" src="{{ asset('images/carrito-de-compras.png') }}" alt="">
                             </button>
-
                         </form>
-
                     </div>
+
 
                 </div>
                 {{-- mostar articulos recomendados en una card --}}

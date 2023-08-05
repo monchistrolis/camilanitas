@@ -6,6 +6,14 @@
             <h1>Productos</h1>
         </div>
     </div>
+    @if($productos->isEmpty())
+    <div class="d-flex justify-content-center mt-3">
+        <h3>No hay productos disponibles en este momento comunicate con la administracion
+        </h3>
+    </div>
+    
+@else
+
 
     <div class="container col-12 d-flex justify-content-center ">
         <div class="row">
@@ -32,7 +40,20 @@
                                 <div class="d-flex justify-content-center">
                                     <a href="{{ url('ver', ['producto' => $producto->id]) }}" class="cardbtn btn mx-2"
                                         style="background-color:#e76e50">ver</a>
-                                    <button class="cardbtn btn" style="background-color:#e8c468">Agregar</button>
+                                    
+                                    <form action="{{ route('carrito.agregar') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="producto_id" value="{{ $producto->id }}">
+            
+                                        <!-- Campo oculto para almacenar la opción (imagen) seleccionada -->
+                                        <input type="hidden" name="opcion" id="opcion" value="0">
+                                        <input type="hidden" name="cantidad" id="cantidad-hidden" value="1"> <!-- Campo oculto para enviar la cantidad al controlador -->
+            
+                                        <button class="btn" style="background-color:#e8c468" type="submit"
+                                            {{ $producto->stock === 0 ? 'disabled' : '' }}> Agregar
+        
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -42,4 +63,5 @@
             </div>
         </div>
     </div>
+    @endif
 @endsection

@@ -16,10 +16,10 @@ return new class extends Migration
     Schema::create('productos', function (Blueprint $table) {
         $table->id();
         $table->string('nombre');
-        $table->string('descripcion');
+        $table->string('descripcion')->nullable();
         $table->decimal('precio', 8, 2);
-        $table->json('imagenes')->nullable(); // Columna para almacenar las imágenes (JSON)
-        $table->integer('stock')->default(0);
+        $table->integer('stock');
+        $table->string('imagenes')->nullable(); // Define el campo 'foto' como nullable para permitir valores null
         $table->timestamps();
     });
 }
