@@ -21,9 +21,9 @@ class PedidosMailable extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(protected $carrito)
     {
-        //
+        $this->carrito = $carrito;
     }
 
     /**
@@ -47,6 +47,8 @@ class PedidosMailable extends Mailable
     {
         return new Content(
             view: 'emails.pedidos',
+            with: [ 'carrito' => $this->carrito
+            ],
         );
     }
 

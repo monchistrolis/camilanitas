@@ -76,17 +76,23 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-{
-    $producto = Producto::find($id);
-    $recomendacion = Producto::inRandomOrder()->limit(4)->get();
-    $imagenes = [];
+    {
+        $producto = Producto::find($id);
+        $productosExcluidos = [$producto->id];
 
-    if ($producto->imagenes) {
-        $imagenes = json_decode($producto->imagenes);
+        // Luego, obtén las recomendaciones excluyendo los productos con los ID en la lista de exclusión
+        $recomendacion = Producto::inRandomOrder()
+            ->whereNotIn('id', $productosExcluidos)
+            ->limit(3)
+            ->get();
+        $imagenes = [];
+
+        if ($producto->imagenes) {
+            $imagenes = json_decode($producto->imagenes);
+        }
+
+        return view('ver', compact('producto', 'recomendacion', 'imagenes'));
     }
-
-    return view('ver', compact('producto', 'recomendacion', 'imagenes'));
-}
 
 
 

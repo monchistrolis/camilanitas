@@ -1,14 +1,14 @@
 @extends('layouts.footer')
 @extends('layouts.app')
 @section('content')
-    <div class="body-principal container">
+    <div class="body-principal container mb-3 contenedorinfo">
         <div class="row">
             <div class="col-md-12">
                 <h1 class="text-center">Ver Producto</h1>
             </div>
             <div class="row">
                 {{-- caruucel --}}
-                <div id="carouselExampleIndicators" class="carousel slide" style="max-width: 300px;">
+                <div id="carouselExampleIndicators" class="carousel slide col-md-4 col-sm-10 mb-3" style="max-width: 300px;">
                     <div class="carousel-inner">
                         @foreach ($imagenes as $index => $imagen)
                             <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
@@ -31,11 +31,8 @@
                         @endforeach
                     </div>
                 </div>
-
-
-
                 {{-- descripcion del producto --}}
-                <div class="col">
+                <div class="col-md-4 col-sm-10 cuadroinfo mb-3">
                     <h1>{{ $producto->nombre }}</h1>
                     <hr class="linea">
                     <h2> $ {{ $producto->precio }}</h2>
@@ -92,7 +89,7 @@
                     <hr class="linea">
 
                     {{-- agregar boton de carrito --}}
-                    <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-center mb-2">
                         <form action="{{ route('carrito.agregar') }}" method="POST">
                             @csrf
                             <input type="hidden" name="producto_id" value="{{ $producto->id }}">
@@ -100,21 +97,26 @@
                             <!-- Campo oculto para almacenar la opción (imagen) seleccionada -->
                             <input type="hidden" name="opcion" id="opcion" value="0">
                             <input type="hidden" name="cantidad" id="cantidad-hidden" value="1"> <!-- Campo oculto para enviar la cantidad al controlador -->
-
-                            <button class="btn" style="width: 50%; background-color:#2a9d90;" type="submit"
+                            <div class="d-flex justify-content-center">
+                                 <button class="btn" style="width: 50; background-color:#2a9d90;" type="submit"
                                 {{ $producto->stock === 0 ? 'disabled' : '' }}> Agregar
                                 <img class="imgcarrito" src="{{ asset('images/carrito-de-compras.png') }}" alt="">
                             </button>
+                            </div>
+                           
                         </form>
                     </div>
 
 
                 </div>
                 {{-- mostar articulos recomendados en una card --}}
-                <div class="col">
-                    <div class="cardrecomendacion card">
-                        <div class="card-header">
-                            <h3>Articulos Recomendados</h3>
+                <div class="col-md-4 col-sm-10">
+                    <div class="cardrecomendacion card ">
+                        <div class="card-header recomendaciones">
+                            <div class="d-flex justify-content-center">
+                                <h3>Articulos Recomendados</h3>
+                            </div>
+                            
                             @foreach ($recomendacion as $producto)
                                 <div class="col">
                                     <div class="row d-flex justify-content-center">

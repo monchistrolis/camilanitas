@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Mail;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/datosCompra', function () {
     return view('datosCompra');
 })->name('datosCompra');
@@ -39,11 +40,12 @@ Route::get('/informacion', function () {
     return view('informacion');
 })->name('informacion');
 
-Route::get('/datosBanco', function() {return view('datosBanco');})->name('datosBanco');
+Route::get('/datosBanco', function () {
+    return view('datosBanco');
+})->name('datosBanco');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 Route::get('/login-google', function () {
@@ -78,6 +80,8 @@ Route::get('/admin', function () {
     return view('admin');
 });
 
+
+
 // rutas de productos
 Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos.create');
 Route::get('/productos/admin', [ProductoController::class, 'admin'])->name('productos.admin');
@@ -91,31 +95,20 @@ Route::post('/confirmacion_compra', [CompraController::class, 'confirmacionCompr
 Route::get('/finalizar_compra', [CompraController::class, 'finalizarCompra'])->name('finalizar_compra');
 
 // rutas de datos bancarios
-Route::post('/datosCompra', [DatosBancariosController::class ,'generarOrden'])->name('datosCompra');
-Route::post('/generar-orden', [DatosBancariosController::class,'generarOrden'])->name('generar-orden');
+Route::post('/datosCompra', [DatosBancariosController::class, 'generarOrden'])->name('datosCompra');
+Route::post('/generar-orden', [DatosBancariosController::class, 'generarOrden'])->name('generar-orden');
 
-// rutas de email
-// Route::get('pedidos',function(){
-//     $correo = new PedidosMailable;
-//     Mail::to('ramon.agui.san96@gmail.com')->send($correo);
-
-//     return "mensaje enviado";
-// });
-Route::get('emails/pedidos',[CarritoController::class,'productoEmail'])->name('pedidos');
+// EMAIL
+Route::get('/emails/pedidos', function () {
+})->name('emails.pedidos');
 
 // rutas de carrito
 Route::get('Carrito/carrito', [CarritoController::class, 'mostrarCarrito'])->name('carrito.mostrar');
-Route::post('/carrito/agregar', [CarritoController::class ,'agregarProducto'])->name('carrito.agregar');
+Route::post('/carrito/agregar', [CarritoController::class, 'agregarProducto'])->name('carrito.agregar');
 Route::delete('/carrito/eliminar/{id}', [CarritoController::class, 'borrarProductoDelCarrito'])->name('carrito.eliminar');
 Route::get('finalizar_compra', [CarritoController::class, 'finalizarCompra'])->name('finalizarCompra');
 
 
-
-
-
+//finalizar compra
 
 // web.php
-
-
-
-

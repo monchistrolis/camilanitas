@@ -1,23 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
+
+{{-- esto es para acceder a la informacion de la session del formulario --}}
+@php
+    $datosConfirmacionCompra = session('confirmacion_compra');
+@endphp
+
     <div class="container-fluid col-12 d-flex justify-content-center">
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
                         <h2 class="card-title">Datos de Envio</h2>
-                        <h5 class="card-text"><strong>N° orden:</strong> {{ $numeroOrden }}</h5>
-                        <p class="card-text"><strong>Nombre:</strong> {{ $nombre }}</p>
-                        <p class="card-text"><strong>Rut:</strong> {{ $rut }}</p>
-                        <p class="card-text"><strong>Región:</strong> {{ $region }}</p>
-                        <p class="card-text"><strong>Comuna:</strong> {{ $comuna }}</p>
-                        <p class="card-text"><strong>Dirección:</strong> {{ $direccion }}</p>
-                        <p class="card-text"><strong>Celular:</strong> +56 {{ $celular }}</p>
+                        <h5 class="card-text"><strong>N° orden:</strong> {{ $datosConfirmacionCompra['numeroOrden'] }}</h5>
+                        <p class="card-text"><strong>Nombre:</strong> {{ $datosConfirmacionCompra['nombre'] }}</p>
+                        <p class="card-text"><strong>Rut:</strong> {{ $datosConfirmacionCompra['rut'] }}</p>
+                        <p class="card-text"><strong>Región:</strong> {{ $datosConfirmacionCompra['region'] }}</p>
+                        <p class="card-text"><strong>Comuna:</strong> {{ $datosConfirmacionCompra['comuna'] }}</p>
+                        <p class="card-text"><strong>Dirección:</strong> {{ $datosConfirmacionCompra['direccion'] }}</p>
+                        <p class="card-text"><strong>Celular:</strong> +56 {{ $datosConfirmacionCompra['celular'] }}</p>
                         {{-- si observacion esta vacia no mostrar campo --}}
-                        @if ($observacion != '')
-                            <p class="card-text"><strong>Observación:</strong> {{ $observacion }}</p>
-                        @endif
+                      
+                            <p class="card-text"><strong>Observación:</strong> {{ $datosConfirmacionCompra['observacion'] }}</p>
                     </div>
                 </div>
             </div>
@@ -49,13 +54,10 @@
 
     </div>
 
-    <div class="mt-3  mb-3 d-flex justify-content-center">
-        <a href="{{ url('productos') }}" class="btn btn-primary mx-2">Volver a la tienda</a>
+    <div class="contenedorBtn" >
+        <a href="{{ url('productos') }}" class="btnfinalizar mx-3">Volver a la tienda</a>
         {{-- finalizar la compra y enviar email al provedor --}}
-        <a href="{{ url('finalizar_compra') }}" class="btn btn-primary ml-3">Finalizar compra</a>
-
-
-
+        <a href="{{ url('finalizar_compra') }}" class="btnfinalizar ml-3">Finalizar compra</a>
     </div>
 @endsection
  

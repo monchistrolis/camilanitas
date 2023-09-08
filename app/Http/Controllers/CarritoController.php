@@ -9,43 +9,46 @@ use App\Models\CartItem;
 use App\Models\Producto;
 use Illuminate\Support\Facades\Storage;
 use App\Mail\PedidosMailable;
+use Darryldecode\Cart\Cart;
 use Illuminate\Support\Facades\Mail;
 
 
 class CarritoController extends Controller
 {
     public function agregarProducto(Request $request)
-    {
-        $productoId = $request->input('producto_id');
-        $cantidad = $request->input('cantidad', 1);
+{
+    $productoId = $request->input('producto_id');
+    $cantidad = $request->input('cantidad', 1);
+    $opcion = $request->input('opcion', 0);
+    $product = Producto::find($productoId);
 
-        $opcion = $request->input('opcion', 0);
-        $product = Producto::find($productoId);
-
-        if (!$product) {
-            return redirect()->back()->with('error', 'Producto no encontrado.');
-        }
-
-        $cartItem = CartItem::where('product_id', $productoId)->first();
-
-        if ($cartItem) {
-            $cartItem->cantidad = $cantidad;
-
-            $cartItem->opcion = $opcion + 1;
-            $cartItem->save();
-        } else {
-            CartItem::create([
-                'imagenes' => $product->imagenes,
-                'product_id' => $productoId,
-                'nombre' => $product->nombre,
-                'cantidad' => $cantidad,
-                'opcion' => $opcion + 1,
-                'precio' => $product->precio,
-            ]);
-        }
-
-        return redirect()->back()->with('success', 'Producto agregado al carrito correctamente.');
+    if (!$product) {
+        return redirect()->back()->with('error', 'Producto no encontrado.');
     }
+
+    $cartItem = CartItem::where('product_id', $productoId)->first();
+
+    if ($cartItem) {
+        $cartItem->cantidad = $cantidad;
+        $cartItem->opcion = $opcion + 1;
+        $cartItem->save();
+    } else {
+        CartItem::create([
+            'imagenes' => $product->imagenes,
+            'product_id' => $productoId,
+            'nombre' => $product->nombre,
+            'cantidad' => $cantidad,
+            'opcion' => $opcion + 1,
+            'precio' => $product->precio,
+        ]);
+    }
+
+    // Actualizar la variable de sesión
+    session(['cart_count' => CartItem::count()]);
+
+    return redirect()->back()->with('success', 'Producto agregado al carrito correctamente.');
+}
+
 
     public function eliminarProducto(Request $request, $productoId)
     {
@@ -65,26 +68,27 @@ class CarritoController extends Controller
         return view('Carrito.carrito', ['carrito' => $carrito, 'total' => $total]);
     }
 
-    public function productoEmail(Request $request)
+    public function mostrarEmail()
     {
-       //mostar todo los datos de la base de datos 
-        $producto = CartItem::with('product')->get();
-        return view('emails.pedidos', ['carrito' => $producto]);
-
+        $carrito ['carrito'] = CartItem::all();
+        // return view('emails.pedidos', $carrito);
+        dd($carrito);
     }
 
     public function finalizarCompra(Request $request)
     {
         // Obtener el carrito actual de la sesión
-        $carrito = $request->session()->get('carrito', []);
-
+       
+        $carrito = CartItem::all();
+        
         // Eliminar los datos del carrito (tabla cartitem)
         CartItem::truncate();
         //correo de confirmacion
-        $correo = new PedidosMailable;
+        $correo = new PedidosMailable($carrito);
+     
         Mail::to('ramon.agui.san96@gmail.com')->send($correo);
 
-
+        session(['cart_count' => CartItem::count()]);
         // Redirigir a una vista de "Compra finalizada" o a donde sea necesario
         return view('finalizar_compra' , ['carrito' => $carrito]);
     }
@@ -96,13 +100,15 @@ class CarritoController extends Controller
         if (!$carritoItem) {
             return redirect()->back()->with('error', 'Ítem del carrito no encontrado.');
         }
-        $producto = Producto::find($carritoItem->product_id);
+        $producto = CartItem::find($carritoItem->product_id);
         if ($producto) {
             $producto->delete();
         }
         $carritoItem->delete();
 
+        session(['cart_count' => CartItem::count()]);
         return redirect()->back()->with('success', 'Producto eliminado del carrito y de la base de datos correctamente.');
     }
+
 
 }
