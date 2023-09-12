@@ -86,7 +86,7 @@ class CarritoController extends Controller
         //correo de confirmacion
         $correo = new PedidosMailable($carrito);
      
-        Mail::to('ramon.agui.san96@gmail.com')->send($correo);
+        Mail::to('fotosra24@gmail.com')->send($correo);
 
         session(['cart_count' => CartItem::count()]);
         // Redirigir a una vista de "Compra finalizada" o a donde sea necesario

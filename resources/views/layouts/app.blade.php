@@ -26,7 +26,7 @@
     <div class="app" id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ route('/') }}">
                     <img class="MiLogo" src="{{ asset('images/fondo.png') }}" alt="">
                     {{ config('app.name', 'Laravel') }}
                 </a>

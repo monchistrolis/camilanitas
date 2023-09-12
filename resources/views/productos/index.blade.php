@@ -6,6 +6,21 @@
             <h1>Productos</h1>
         </div>
     </div>
+
+    <div class="contenedormsn">
+        <div class="col-6">
+            @if (session('success'))
+                <div class="alert alert-success" role="alert" id="myAlert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    {{ session('success') }}
+                </div>
+            @endif
+        </div>
+    </div>
+
+
+
+
     @if ($productos->isEmpty())
         <div class="d-flex justify-content-center mt-3">
             <h3>No hay productos disponibles en este momento comunicate con la administracion
@@ -14,7 +29,7 @@
     @else
         <div class="container col-12 ">
             <div class="row">
-                <div class="card-deck col-12 col-md-12 col-sm-4 ">
+                <div class="card-deck  col-12 col-md-12 col-sm-3 ">
                     <a id="estella" style="text-decoration: none">
                         @foreach ($productos as $producto)
                             <div class="tarjeta2 card m-3 " style="width: 18rem;">

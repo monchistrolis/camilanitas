@@ -24,10 +24,10 @@
                 <h5 class="text-uppercase ">Contacto</h5>
                 <ul class="list-unstyled " style="text-decoration:none">
                     <li>
-                        <a >correo@musical.cl</a>
+                        <a>Camilanitas@gmail.com</a>
                     </li>
                     <li>
-                        <a >+56 9 7997 8763</a>
+                        <a >+56945088503</a>
                     </li>
                     <li>
                         <a href="#!"></a>

@@ -47,31 +47,32 @@
                     <!-- Resto del formulario y campos de entrada -->
                     <div class="form-group">
                         <label for="nombre">Nombre Completo:</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required placeholder="Tu nombre Aquí">
                     </div>
                     <div class="form-group">
                         <label for="rut">Rut:</label>
-                        <input type="text" class="form-control" id="rut" name="rut" required>
+                        <input type="text" class="form-control" id="rut" name="rut" required placeholder=" Tu Rut">
                     </div>
                     <div class="form-group">
                         <label for="region">Region:</label>
-                        <input type="text" class="form-control" id="region" name="region" required>
+                        <input type="text" class="form-control" id="region" name="region" required placeholder=" ej: Metropolitana">
                     </div>
                     <div class="form-group">
                         <label for="comuna">Comuna:</label>
-                        <input type="text" class="form-control" id="comuna" name="comuna" required>
+                        <input type="text" class="form-control" id="comuna" name="comuna" required placeholder="ej: Puente Alto">
                     </div>
                     <div class="form-group">
                         <label for="direccion">Direccion:</label>
-                        <input type="text" class="form-control" id="direccion" name="direccion" required>
+                        <p>calle ,pasaje o avenida, numeración y villa, población o condominio</p>
+                        <input type="text" class="form-control" id="direccion" name="direccion" required placeholder="obispo espinosa *789, los miradores ">
                     </div>
                     <div class="form-group">
                         <label for="direccion">Celular:</label>
-                        <input type="text" class="form-control" id="celular" name="celular" required>
+                        <input type="text" class="form-control" id="celular" name="celular" required placeholder="+56985614793">
                     </div>
                     <div class="form-group">
                         <label for="direccion">Observacion:</label>
-                        <input type="text" class="form-control" id="observacion" name="observacion">
+                        <input type="text" class="form-control" id="observacion" name="observacion"placeholder="llamar al llegar , etc">
                     </div>
 
                     <div class="form-group">

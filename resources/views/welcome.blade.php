@@ -41,5 +41,14 @@
             </div>
         </div>
     </div>
+<div class="textoVideo col-6">
+    <h3 class="">Así es como fabricamos una alfombra con la aguja mágica </h3>
+</div>
+    <div class="containerVideo">
+        <video class="video col-xxl-8 col-xl-8 col-lg-6 col-md-10 col-sm-10 col-12 mb-3 " width="640" height="360"
+            style="border-radius: 20px" controls>
+            <source class="marcovideo" src="{{ asset('video/tanjiro.mp4') }}" type="video/mp4">
+            Tu navegador no admite el elemento de video..
+        </video>
     </div>
 @endsection

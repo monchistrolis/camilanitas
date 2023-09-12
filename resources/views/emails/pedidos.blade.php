@@ -53,17 +53,19 @@
             border: 1px solid #ccc;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
         }
-
     </style>
 </head>
 
 <body>
-    <h1>Hola Camila, ha realizado un pedido con el número de orden {{ session('numeroOrden') }}</h1>
-    <h2>El pedido es el siguiente:</h2>
-
     @php
         $datosConfirmacionCompra = session('confirmacion_compra');
     @endphp
+
+    <h1>Hola Camila, te informamos que se ha realizado un pedido {{ $datosConfirmacionCompra['nombre'] }} con el número
+        de orden {{ session('numeroOrden') }}</h1>
+    <h2>El pedido es el siguiente:</h2>
+
+
 
     <div class="pedido">
         @foreach ($carrito as $item)
@@ -75,7 +77,7 @@
             </div>
         @endforeach
     </div>
-
+    <hr>
     <h2>Datos del cliente:</h2>
     <h3>Nombre: {{ $datosConfirmacionCompra['nombre'] }}</h3>
     <h3>Celular: {{ $datosConfirmacionCompra['celular'] }}</h3>
